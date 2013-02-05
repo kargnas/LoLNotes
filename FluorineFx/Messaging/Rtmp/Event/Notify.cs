@@ -107,6 +107,10 @@ namespace FluorineFx.Messaging.Rtmp.Event
 			get{ return _connectionParameters; }
 			set{ _connectionParameters = value; }
 		}
+        public string ToStringForMe()
+        {
+            return ToStringFields(0);
+        }
         /// <summary>
         /// Returns a string that represents the current object fields.
         /// </summary>

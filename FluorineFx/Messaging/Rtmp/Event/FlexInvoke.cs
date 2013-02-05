@@ -120,7 +120,7 @@ namespace FluorineFx.Messaging.Rtmp.Event
             string sep = GetFieldSeparator(indentLevel);
             string value = base.ToStringFields(indentLevel);
             //value += sep + "cmd = " + BodyToString(_cmd, indentLevel + 1);
-            value += sep + "cmdData = " + _cmdData;
+            value += sep + "cmdData = " + BodyToString(_cmdData, indentLevel + 1);
             //value += sep + "parameters = " + BodyToString(_parameters, indentLevel + 1);
             //value += sep + "response = " + BodyToString(_response, indentLevel + 1);
             return value;

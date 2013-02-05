@@ -37,13 +37,15 @@ using FluorineFx.Util;
 using LoLNotes.Messaging.Messages;
 using LoLNotes.Util;
 using NotMissing.Logging;
+using System.Web.Script.Serialization;
+
 
 namespace LoLNotes.Proxy
 {
 	public class RtmpsProxyClient : ProxyClient
 	{
 		const bool encode = true;
-		const bool logtofiles = false;
+		const bool logtofiles = true;
 
 		public new RtmpsProxyHost Host { get; protected set; }
 		protected RtmpContext sourcecontext = new RtmpContext(RtmpMode.Server) { ObjectEncoding = ObjectEncoding.AMF0 };
@@ -186,6 +188,10 @@ namespace LoLNotes.Proxy
 					using (var fs = File.Open("recv.dmp", FileMode.Append, FileAccess.Write))
 					{
 						fs.Write(buff, 0, buff.Length);
+
+						string dataasstring = "\r\n---------------------\r\n"; //your data
+						byte[] info = new UTF8Encoding(true).GetBytes(dataasstring);
+						fs.Write(info, 0, info.Length);
 					}
 				}
 				if (encode)
@@ -219,6 +225,10 @@ namespace LoLNotes.Proxy
 					using (var fs = File.Open("send.dmp", FileMode.Append, FileAccess.Write))
 					{
 						fs.Write(buff, 0, buff.Length);
+
+						string dataasstring = "\r\n---------------------\r\n"; //your data
+						byte[] info = new UTF8Encoding(true).GetBytes(dataasstring);
+						fs.Write(info, 0, info.Length);
 					}
 				}
 				if (encode)
@@ -263,13 +273,17 @@ namespace LoLNotes.Proxy
 				using (var fs = File.Open("realsend.dmp", FileMode.Append, FileAccess.Write))
 				{
 					fs.Write(buffer, idx, len);
+
+					string dataasstring = "\r\n---------------------\r\n"; //your data
+					byte[] info = new UTF8Encoding(true).GetBytes(dataasstring);
+					fs.Write(info, 0, info.Length);
 				}
 			}
 
 			sendbuffer.Append(buffer, idx, len);
 
 			var objs = RtmpProtocolDecoder.DecodeBuffer(sourcecontext, sendbuffer);
-			if (objs != null)
+            if (objs != null)
 			{
 				foreach (var obj in objs)
 				{
@@ -289,7 +303,8 @@ namespace LoLNotes.Proxy
 									string.Join(", ", inv.ServiceCall.Arguments.Select(o => o.ToString())),
 									pck.Header.ChannelId
 								)
-							);
+                            );
+							Console.WriteLine(inv.ToStringForMe());
 						}
 						else
 						{
@@ -327,6 +342,10 @@ namespace LoLNotes.Proxy
 									using (var fs = File.Open("send.dmp", FileMode.Append, FileAccess.Write))
 									{
 										fs.Write(buff, 0, buff.Length);
+
+										string dataasstring = "\r\n---------------------\r\n"; //your data
+										byte[] info = new UTF8Encoding(true).GetBytes(dataasstring);
+										fs.Write(info, 0, info.Length);
 									}
 								}
 								if (encode)
@@ -350,6 +369,10 @@ namespace LoLNotes.Proxy
 				using (var fs = File.Open("realrecv.dmp", FileMode.Append, FileAccess.Write))
 				{
 					fs.Write(buffer, idx, len);
+
+					string dataasstring = "\r\n---------------------\r\n"; //your data
+					byte[] info = new UTF8Encoding(true).GetBytes(dataasstring);
+					fs.Write(info, 0, info.Length);
 				}
 			}
 
@@ -434,6 +457,10 @@ namespace LoLNotes.Proxy
 									using (var fs = File.Open("recv.dmp", FileMode.Append, FileAccess.Write))
 									{
 										fs.Write(buff, 0, buff.Length);
+
+										string dataasstring = "\r\n---------------------\r\n"; //your data
+										byte[] info = new UTF8Encoding(true).GetBytes(dataasstring);
+										fs.Write(info, 0, info.Length);
 									}
 								}
 								if (encode)
