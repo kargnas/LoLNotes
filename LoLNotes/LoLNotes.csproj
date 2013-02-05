@@ -489,7 +489,8 @@
 XCOPY "$(ProjectDir)\Content" "$(TargetDir)Content\" /E /I /F /Y /D</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>"$(ProjectDir)\Properties\GitExport.exe" "$(SolutionDir)\" "$(ProjectDir)\"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
